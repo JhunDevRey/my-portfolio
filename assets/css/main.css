@@ -288,7 +288,18 @@ h6 {
     line-height: 0;
     margin-right: 10px;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav-toggle:hover {
+    color: var(--nav-hover-color);
+    transform: scale(1.1);
   }
 
   .navmenu {
@@ -299,86 +310,137 @@ h6 {
   .navmenu ul {
     display: none;
     list-style: none;
-    position: absolute;
-    align-items: center;
-    inset: 60px 20px 20px 20px;
-    padding: 10px 0;
+    position: fixed;
+    align-items: flex-start;
+    flex-direction: column;
+    inset: 70px 12px 12px 12px;
+    padding: 24px 0;
     margin: 0;
-    border-radius: 6px;
-    background-color: var(--nav-mobile-background-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--nav-mobile-background-color), color-mix(in srgb, var(--nav-mobile-background-color), #1a1a1a 20%));
     overflow-y: auto;
-    transition: 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9998;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 85%);
+    max-height: calc(100vh - 94px);
+  }
+
+  .navmenu ul::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .navmenu ul::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .navmenu ul::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent-color), transparent 60%);
+    border-radius: 3px;
+  }
+
+  .navmenu ul::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
   }
 
   .navmenu a,
   .navmenu a:focus {
     color: var(--nav-dropdown-color);
-    padding: 10px 20px;
+    padding: 14px 20px;
+    margin: 10px 8px;
     font-family: var(--nav-font);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     white-space: nowrap;
-    transition: 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .navmenu a::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+  }
+
+  .navmenu a:hover::before,
+  .navmenu .active::before {
+    width: calc(100% - 40px);
   }
 
   .navmenu a i,
   .navmenu a:focus i {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 0;
-    margin-left: 5px;
-    width: 30px;
-    height: 30px;
+    margin-left: 8px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: 0.3s;
-    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 92%);
   }
 
   .navmenu a i:hover,
   .navmenu a:focus i:hover {
     background-color: var(--accent-color);
     color: var(--contrast-color);
+    transform: scale(1.15);
   }
 
   .navmenu a:hover,
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-dropdown-hover-color);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 94%);
+    transform: translateX(4px);
   }
 
   .navmenu .active i,
   .navmenu .active:focus i {
     background-color: var(--accent-color);
     color: var(--contrast-color);
-    transform: rotate(180deg);
+    transform: rotate(180deg) scale(1.15);
   }
 
   .navmenu .dropdown ul {
     position: static;
     display: none;
     z-index: 99;
-    padding: 10px 0;
-    margin: 10px 20px;
-    background-color: var(--nav-dropdown-background-color);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-    box-shadow: none;
-    transition: all 0.5s ease-in-out;
+    padding: 8px 0;
+    margin: 8px 0 8px 30px;
+    background-color: color-mix(in srgb, var(--nav-dropdown-background-color), var(--accent-color) 3%);
+    border: none;
+    border-left: 3px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+    border-radius: 0 8px 8px 0;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .navmenu .dropdown ul ul {
-    background-color: rgba(33, 37, 41, 0.1);
+    background-color: color-mix(in srgb, var(--nav-dropdown-background-color), transparent 10%);
+    border-left-color: color-mix(in srgb, var(--accent-color), transparent 80%);
   }
 
   .navmenu .dropdown>.dropdown-active {
     display: block;
-    background-color: rgba(33, 37, 41, 0.03);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 96%);
+  }
+
+  .navmenu .dropdown>.dropdown-active::before {
+    width: calc(100% - 40px);
   }
 
   .mobile-nav-active {
@@ -386,25 +448,49 @@ h6 {
   }
 
   .mobile-nav-active .mobile-nav-toggle {
-    color: #fff;
-    position: absolute;
+    color: var(--nav-hover-color);
+    position: fixed;
     font-size: 32px;
     top: 15px;
     right: 15px;
     margin-right: 0;
     z-index: 9999;
+    animation: spin-toggle 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes spin-toggle {
+    from {
+      transform: rotate(0deg) scale(1);
+    }
+    to {
+      transform: rotate(90deg) scale(1.1);
+    }
   }
 
   .mobile-nav-active .navmenu {
     position: fixed;
     overflow: hidden;
     inset: 0;
-    background: rgba(33, 37, 41, 0.8);
-    transition: 0.3s;
+    background: linear-gradient(135deg, rgba(33, 37, 41, 0.95), rgba(20, 20, 20, 0.95));
+    backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 90%);
   }
 
   .mobile-nav-active .navmenu>ul {
-    display: block;
+    display: flex;
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
 

@@ -12,16 +12,16 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'consequel@gmail.com';
-    $mail->Password = 'rkgh bgxw ufev usty';
+    $mail->Username = 'jhundaverey@gmail.com';
+    $mail->Password = 'krtv omgx jsnn xmlr';
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
     // Sender (MUST be your Gmail)
-    $mail->setFrom('consequel@gmail.com', 'Website Contact');
+    $mail->setFrom('jhundaverey@gmail.com', 'Website Contact');
 
     // Receiver
-    $mail->addAddress('consequel@gmail.com');
+    $mail->addAddress('jhundaverey@gmail.com');
 
     // Reply-to (user email)
     $mail->addReplyTo($_POST['email'], $_POST['name']);
